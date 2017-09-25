@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>数据结构专题 | PIVIX</title>
+  <meta name="description" content="A minimal hexo theme." />
+  <meta name="keywords" content="hexo,theme,typescript,otakism,otaku" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最后一题无语（有序链剖……）Problem 1. rotinv 题解 12345678910111213141516171819202122232425262728293031323334353637383940414243#include &amp;lt;cstdio&amp;gt;#include &amp;lt;iostream&amp;gt;using namespace std;const int N = 100000">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构专题">
+<meta property="og:url" content="https://lemonoilP.github.io/2017/04/02/数据结构专题/index.html">
+<meta property="og:site_name" content="PIVIX">
+<meta property="og:description" content="最后一题无语（有序链剖……）Problem 1. rotinv 题解 12345678910111213141516171819202122232425262728293031323334353637383940414243#include &amp;lt;cstdio&amp;gt;#include &amp;lt;iostream&amp;gt;using namespace std;const int N = 100000">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170923717?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170049180?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170155620?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170939374?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170336324?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170421605?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318171013771?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318171029381?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170530702?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318170634904?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-04-02T13:23:52.677Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构专题">
+<meta name="twitter:description" content="最后一题无语（有序链剖……）Problem 1. rotinv 题解 12345678910111213141516171819202122232425262728293031323334353637383940414243#include &amp;lt;cstdio&amp;gt;#include &amp;lt;iostream&amp;gt;using namespace std;const int N = 100000">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170318170923717?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+	<script src="https://use.typekit.net/eyf3hir.js"></script>
+  <script>try{Typekit.load({ async: false });}catch(e){}</script>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+  
+
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+
+  <script>setLoadingBarProgress(20)</script>
+  
+  <div id="site-wrapper">
+    
+    <header id="header">
+	<div id="header-wrapper" class="clearfix">
+		<a id="logo" href="/">
+			<img src="/images/logo.png" />
+			<span id="site-desc">
+			  otaku keeps alive
+      </span>
+		</a>
+		<button id="site-nav-switch">
+	    <span class="icon icon-menu"></span>
+	  </button>
+	</div>
+	<aside id="site-menu">
+  	<nav>
+  		
+        <a href="/" class="nav-home nav">
+          Home
+        </a>
+      
+        <a href="/about" class="nav-about nav">
+          About
+        </a>
+      
+        <a href="/archives" class="nav-archives nav">
+          Archives
+        </a>
+      
+    </nav>
+	</aside>
+</header>
+    <script>setLoadingBarProgress(40);</script>
+    
+    <main id="main" role="main">
+      <article id="post-数据结构专题"
+  class="post article white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<h2 class="title">
+  	<a href="/2017/04/02/数据结构专题/">
+    	数据结构专题
+    </a>
+  </h2>
+	<time>
+	  Apr 2, 2017
+	</time>
+	<section class="content">
+  	<div class="article-entry" itemprop="articleBody">
+    	<h2 id="最后一题无语（有序链剖……）"><a href="#最后一题无语（有序链剖……）" class="headerlink" title="最后一题无语（有序链剖……）"></a>最后一题无语（有序链剖……）</h2><h1 id="Problem-1-rotinv"><a href="#Problem-1-rotinv" class="headerlink" title="Problem 1. rotinv"></a>Problem 1. rotinv</h1><p><img src="http://img.blog.csdn.net/20170318170923717?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170318170049180?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p><img src="http://img.blog.csdn.net/20170318170155620?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000000</span> + <span class="number">10</span>;</div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">readin</span>(<span class="title">T</span> &amp;<span class="title">resez</span>)&#123;</span></div><div class="line">	<span class="keyword">static</span> <span class="keyword">char</span> ch;</div><div class="line">	<span class="keyword">while</span>((ch=getchar())&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>);resez=ch<span class="number">-48</span>;</div><div class="line">	<span class="keyword">while</span>((ch=getchar())&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)resez=resez*<span class="number">10</span>+ch<span class="number">-48</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">int</span> n;</div><div class="line"><span class="keyword">int</span> a[N+N];</div><div class="line"><span class="keyword">int</span> bit[N*<span class="number">24</span>];</div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> ans,cnt;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> pos,<span class="keyword">int</span> delta)</span> </span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = pos;i&lt;=n;i+=i&amp;-i)bit[i] += delta;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> right)</span></span>&#123;</div><div class="line">	<span class="keyword">int</span> rt=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=right;i;i-=i&amp;-i)rt += bit[i];</div><div class="line">	<span class="keyword">return</span> rt;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	freopen(<span class="string">"rotinv.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line">	freopen(<span class="string">"rotinv.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</div><div class="line">	readin(n);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) &#123;</div><div class="line">		readin(a[i]);</div><div class="line">		a[n+i]=a[i];</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++ ) &#123;</div><div class="line">		cnt+=(i<span class="number">-1</span>)-query(a[i]);</div><div class="line">		build(a[i],+<span class="number">1</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i = n + <span class="number">1</span>; i &lt;= n + n; i++ ) &#123;</div><div class="line">		build(a[i-n],<span class="number">-1</span>);</div><div class="line">		cnt+=n<span class="number">-1</span>-query(a[i]);</div><div class="line">		cnt-=query(a[i-n]<span class="number">-1</span>);</div><div class="line">		build(a[i],+<span class="number">1</span>);</div><div class="line">		ans+=cnt;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Problem-2-rise"><a href="#Problem-2-rise" class="headerlink" title="Problem 2. rise"></a>Problem 2. rise</h1><p><img src="http://img.blog.csdn.net/20170318170939374?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170318170336324?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p><img src="http://img.blog.csdn.net/20170318170421605?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">500000</span>+<span class="number">10</span>;</div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">readin</span>(<span class="title">T</span> &amp;<span class="title">resez</span>)&#123;</span></div><div class="line">	<span class="keyword">static</span> <span class="keyword">char</span> ch;</div><div class="line">	<span class="keyword">while</span>((ch=getchar())&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>);resez=ch<span class="number">-48</span>;</div><div class="line">	<span class="keyword">while</span>((ch=getchar())&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)resez=resez*<span class="number">10</span>+ch<span class="number">-48</span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></div><div class="line">	<span class="keyword">int</span> left,right,child_left,child_right,maxn;</div><div class="line">	Node *ch[<span class="number">2</span>];</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> h)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span>(left==right)<span class="keyword">return</span> h&lt;maxn;</div><div class="line">		<span class="keyword">else</span> <span class="keyword">return</span> (h&lt;ch[<span class="number">0</span>]-&gt;maxn)?ch[<span class="number">0</span>]-&gt;find(h)+child_right:ch[<span class="number">1</span>]-&gt;find(h);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</div><div class="line">		maxn=max(ch[<span class="number">0</span>]-&gt;maxn,ch[<span class="number">1</span>]-&gt;maxn);</div><div class="line">		child_right=ch[<span class="number">1</span>]-&gt;find(ch[<span class="number">0</span>]-&gt;maxn);</div><div class="line">		child_left=ch[<span class="number">0</span>]-&gt;child_left+child_right;</div><div class="line">	&#125;</div><div class="line">&#125;pool[N&lt;&lt;<span class="number">1</span>],*point=pool,*root,*a[N];</div><div class="line"><span class="keyword">int</span> n,m,high[N],head,tail,l,r;</div><div class="line"><span class="function">Node *<span class="title">build</span><span class="params">(<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span></span>&#123;</div><div class="line">	Node *node=++point;</div><div class="line">	node-&gt;left=left;</div><div class="line">	node-&gt;right=right;</div><div class="line">	<span class="keyword">if</span>(left==right)&#123;</div><div class="line">		node-&gt;child_left=<span class="number">1</span>;</div><div class="line">		node-&gt;child_right=<span class="number">0</span>;</div><div class="line">		node-&gt;maxn=high[left];</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		<span class="keyword">int</span> mid=(left+right)&gt;&gt;<span class="number">1</span>;</div><div class="line">		node-&gt;ch[<span class="number">0</span>]=build(left,mid);</div><div class="line">		node-&gt;ch[<span class="number">1</span>]=build(mid+<span class="number">1</span>,right);</div><div class="line">		node-&gt;update();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> node;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">ask</span><span class="params">(Node *node,<span class="keyword">int</span> L,<span class="keyword">int</span> R)</span></span>&#123;</div><div class="line">	<span class="keyword">if</span>(L&lt;=node-&gt;left&amp;&amp;node-&gt;right&lt;=R)&#123;</div><div class="line">		a[++tail]=node;<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">int</span> mid=(node-&gt;left+node-&gt;right)&gt;&gt;<span class="number">1</span>;</div><div class="line">	<span class="keyword">if</span>(L&lt;=mid)ask(node-&gt;ch[<span class="number">0</span>],L,R);</div><div class="line">	<span class="keyword">if</span>(R&gt;mid)ask(node-&gt;ch[<span class="number">1</span>],L,R);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R)</span></span>&#123;</div><div class="line">	head=<span class="number">1</span>,tail=<span class="number">0</span>;</div><div class="line">	ask(root,L,R);</div><div class="line">	<span class="keyword">int</span> cnt=<span class="number">0</span>,ans=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=head;i&lt;=tail;i++)&#123;</div><div class="line">		ans+=a[i]-&gt;find(cnt);</div><div class="line">		cnt=max(cnt,a[i]-&gt;maxn);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	freopen(<span class="string">"rise.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line">	freopen(<span class="string">"rise.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</div><div class="line">	readin(n),readin(m);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)readin(high[i]);</div><div class="line">	root=build(<span class="number">1</span>,n);</div><div class="line">	<span class="keyword">while</span>(m--)&#123;</div><div class="line">		readin(l),readin(r);</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,query(l,r));</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Problem-3-seqmod"><a href="#Problem-3-seqmod" class="headerlink" title="Problem 3. seqmod"></a>Problem 3. seqmod</h1><p>（神题特此附上两张图！！！）<br><img src="http://img.blog.csdn.net/20170318171013771?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170318171029381?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170318170530702?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><p><img src="http://img.blog.csdn.net/20170318170634904?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVtb25vaWw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>idy002大神发明了有序链剖。。。然而并不知道。。。<br><a href="http://www.cnblogs.com/idy002/p/4563611.html" target="_blank" rel="external">有序链剖（神！！！）</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">100000</span> + <span class="number">10</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> M=N&lt;&lt;<span class="number">1</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> Mod=<span class="number">31</span>;</div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">readin</span>(<span class="title">T</span> &amp;<span class="title">res</span>)&#123;</span></div><div class="line">	<span class="keyword">static</span> <span class="keyword">char</span> ch;</div><div class="line">	<span class="keyword">while</span>((ch=getchar())&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>);res=ch<span class="number">-48</span>;</div><div class="line">	<span class="keyword">while</span>((ch=getchar())&lt;=<span class="string">'9'</span>&amp;&amp;ch&gt;=<span class="string">'0'</span>)res=res*<span class="number">10</span>+ch<span class="number">-48</span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span>&#123;</span></div><div class="line">	<span class="keyword">int</span> v,len;</div><div class="line">	Point()&#123;&#125;</div><div class="line">	Point(<span class="keyword">int</span> v,<span class="keyword">int</span> len):v(v),len(len)&#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">int</span> head[N],wght[M],dest[M],last[M],etot;</div><div class="line"><span class="keyword">int</span> depf[N],siz[N],son[N],top[N],father[N],val[N],in[N],rank[N],deps[N],pos_id;</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></div><div class="line">	Point ab,ba;</div><div class="line">	Node *ls,*rs;</div><div class="line">&#125;point_pool[N*<span class="number">4</span>],*tail=point_pool,*root;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">	deps[<span class="number">0</span>]=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;N;i++)</div><div class="line">		deps[i]=deps[i<span class="number">-1</span>]*<span class="number">10</span>%Mod;</div><div class="line">&#125;</div><div class="line"><span class="function">Point <span class="title">link</span><span class="params">(<span class="keyword">const</span> Point &amp;a,<span class="keyword">const</span> Point &amp;b)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> Point((a.v * deps[b.len] + b.v) % Mod,a.len + b.len);</div><div class="line">&#125;</div><div class="line"><span class="function">Node *<span class="title">build</span><span class="params">(<span class="keyword">int</span> lf,<span class="keyword">int</span> rg)</span></span>&#123;</div><div class="line">	Node *nd=++tail;</div><div class="line">	<span class="keyword">if</span>(lf == rg)&#123;</div><div class="line">		nd-&gt;ab=nd-&gt;ba=Point(val[rank[lf]],<span class="number">1</span>);</div><div class="line">	&#125; <span class="keyword">else</span>&#123;</div><div class="line">		<span class="keyword">int</span> mid=(lf + rg)&gt;&gt;<span class="number">1</span>;</div><div class="line">		nd-&gt;ls=build(lf,mid);</div><div class="line">		nd-&gt;rs=build(mid + <span class="number">1</span>,rg);</div><div class="line">		nd-&gt;ab=link(nd-&gt;ls-&gt;ab,nd-&gt;rs-&gt;ab);</div><div class="line">		nd-&gt;ba=link(nd-&gt;rs-&gt;ba,nd-&gt;ls-&gt;ba);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> nd;</div><div class="line">&#125;</div><div class="line"><span class="function">Point <span class="title">query_ab</span><span class="params">(Node *nd,<span class="keyword">int</span> lf,<span class="keyword">int</span> rg,<span class="keyword">int</span> L,<span class="keyword">int</span> R)</span></span>&#123;</div><div class="line">	<span class="keyword">if</span>(L &lt;= lf &amp;&amp; rg &lt;= R) <span class="keyword">return</span> nd-&gt;ab;</div><div class="line">	<span class="keyword">int</span> mid=(lf + rg)&gt;&gt;<span class="number">1</span>;</div><div class="line">	<span class="keyword">if</span>(R &lt;= mid) <span class="keyword">return</span> query_ab(nd-&gt;ls,lf,mid,L,R);</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(L&gt;mid) <span class="keyword">return</span> query_ab(nd-&gt;rs,mid+<span class="number">1</span>,rg,L,R);</div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> link(</div><div class="line">			query_ab(nd-&gt;ls,lf,mid,L,R),</div><div class="line">			query_ab(nd-&gt;rs,mid+<span class="number">1</span>,rg,L,R));</div><div class="line">&#125;</div><div class="line"><span class="function">Point <span class="title">query_father</span><span class="params">(Node *nd,<span class="keyword">int</span> lf,<span class="keyword">int</span> rg,<span class="keyword">int</span> L,<span class="keyword">int</span> R)</span></span>&#123;</div><div class="line">	<span class="keyword">if</span>(L &lt;= lf &amp;&amp; rg &lt;= R) <span class="keyword">return</span> nd-&gt;ba;</div><div class="line">	<span class="keyword">int</span> mid=(lf + rg)&gt;&gt;<span class="number">1</span>;</div><div class="line">	<span class="keyword">if</span>(R &lt;= mid) <span class="keyword">return</span> query_father(nd-&gt;ls,lf,mid,L,R);</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(L&gt;mid) <span class="keyword">return</span> query_father(nd-&gt;rs,mid+<span class="number">1</span>,rg,L,R);</div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> link(</div><div class="line">			query_father(nd-&gt;rs,mid+<span class="number">1</span>,rg,L,R),</div><div class="line">			query_father(nd-&gt;ls,lf,mid,L,R));</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">adde</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> d)</span></span>&#123;</div><div class="line">	etot++;</div><div class="line">	dest[etot]=v;</div><div class="line">	last[etot]=head[u];</div><div class="line">	wght[etot]=d;</div><div class="line">	head[u]=etot;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</div><div class="line">	siz[u]=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> t=head[u]; t; t=last[t])&#123;</div><div class="line">		<span class="keyword">int</span> v=dest[t];</div><div class="line">		<span class="keyword">if</span>(v == father[u]) <span class="keyword">continue</span>;</div><div class="line">		father[v]=u;</div><div class="line">		depf[v]=depf[u] + <span class="number">1</span>;</div><div class="line">		val[v]=wght[t];</div><div class="line">		dfs1(v);</div><div class="line">		siz[u] += siz[v];</div><div class="line">		<span class="keyword">if</span>(siz[v]&gt;siz[son[u]]) son[u]=v;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</div><div class="line">	in[u]=++pos_id;</div><div class="line">	rank[pos_id]=u;</div><div class="line">	<span class="keyword">if</span>(son[u])&#123;</div><div class="line">		top[son[u]]=top[u];</div><div class="line">		dfs2(son[u]);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> t=head[u]; t; t=last[t])&#123;</div><div class="line">		<span class="keyword">int</span> v=dest[t];</div><div class="line">		<span class="keyword">if</span>(v == father[u] || v == son[u]) <span class="keyword">continue</span>;</div><div class="line">		top[v]=v;</div><div class="line">		dfs2(v);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</div><div class="line">	Point y_x(0,0),x_y(0,0);</div><div class="line">	<span class="keyword">while</span>(top[u]!=top[v])&#123;</div><div class="line">		<span class="keyword">if</span>(depf[top[u]]&gt;depf[top[v]])&#123;</div><div class="line">			y_x=link(y_x,query_father(root,<span class="number">1</span>,pos_id,in[top[u]],in[u]));</div><div class="line">			u=father[top[u]];</div><div class="line">		&#125; <span class="keyword">else</span>&#123;</div><div class="line">			x_y=link(query_ab(root,<span class="number">1</span>,pos_id,in[top[v]],in[v]),x_y);</div><div class="line">			v=father[top[v]];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>(depf[u]&gt;depf[v])&#123;</div><div class="line">		y_x=link(y_x,query_father(root,<span class="number">1</span>,pos_id,in[v]+<span class="number">1</span>,in[u]));</div><div class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span>(depf[v]&gt;depf[u])&#123;</div><div class="line">		x_y=link(query_ab(root,<span class="number">1</span>,pos_id,in[u]+<span class="number">1</span>,in[v]),x_y);</div><div class="line">	&#125;</div><div class="line">	Point ans=link(y_x,x_y);</div><div class="line">	<span class="keyword">return</span> ans.v;</div><div class="line">&#125;</div><div class="line"><span class="keyword">int</span> n,m;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	freopen(<span class="string">"seqmod.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line">	freopen(<span class="string">"seqmod.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</div><div class="line">	readin(n),readin(m);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</div><div class="line">		<span class="keyword">int</span> u,v,d;</div><div class="line">		readin(u),readin(v),readin(d),</div><div class="line">		adde(u,v,d);</div><div class="line">		adde(v,u,d);</div><div class="line">	&#125;</div><div class="line">	init();</div><div class="line">	father[<span class="number">1</span>]=<span class="number">1</span>;</div><div class="line">	depf[<span class="number">1</span>]=<span class="number">0</span>;</div><div class="line">	dfs1(<span class="number">1</span>);</div><div class="line">	top[<span class="number">1</span>]=<span class="number">1</span>;</div><div class="line">	dfs2(<span class="number">1</span>);</div><div class="line">	root=build(<span class="number">1</span>,pos_id);</div><div class="line">	<span class="keyword">while</span>(m--)&#123;</div><div class="line">		<span class="keyword">int</span> u,v;</div><div class="line">		readin(u),readin(v);</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,query(u,v));</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+  	</div>
+
+	  <div class="article-tags tags">
+		  
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+      
+	  </div>
+	</section>
+</article>
+
+
+<section id="comments">
+	<div id="disqus_thread"></div>
+</section>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </main>
+    
+    <footer id="footer" class="clearfix">
+  
+  
+	<div class="search">
+	  <form name="searchform" id="searchform" class="u-search-form">
+	    <input type="text" id="searchinput" class="u-search-input" placeholder="Looking for something?" />
+	    <button type="submit" id="u-search-btn-submit" class="u-search-btn-submit">
+	      <span class="icon icon-search"></span>
+	    </button>
+	  </form>
+	</div>
+	
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/artchen" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://twitter.com/otakism" class="social twitter"
+          target="_blank" rel="external">
+          <span class="icon icon-twitter"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
+        <a href="https://plus.google.com/+ArtChenOtakism/posts" class="social google"
+          target="_blank" rel="external">
+          <span class="icon icon-google"></span>
+        </a>
+      
+        <a href="http://weibo.com/otakism/" class="social sina-weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-sina-weibo"></span>
+        </a>
+      
+    
+  </div>
+  
+  <div>Theme <span class="codename">Typescript</span> designed by <a href="http://rakugaki.me/" target="_blank">Art Chen</a>.</div>
+  <div>&copy; <a href="/">PIVIX</a></div>
+  
+</footer>
+
+
+    <script>setLoadingBarProgress(80);</script>
+    
+  </div>
+
+  
+<script>
+  var disqus_shortname = 'https://lemonoilP.github.io';
+  
+  var disqus_url = 'https://lemonoilP.github.io/2017/04/02/数据结构专题/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "google";
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
+  
+</body>
+</html>
